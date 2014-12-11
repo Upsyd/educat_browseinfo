@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+		<!-- View For Exam Session -->
+		
+		
+		<record id="view_op_exam_session_tree" model="ir.ui.view">
+			<field name="name">op.exam.session.tree</field>
+			<field name="model">op.exam.session</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Exam Session">
+					<field name="name" />
+					<field name="code" />
+					<field name="start_date" />
+					<field name="end_date" />
+					<field name="exam_list" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+		<record id="view_op_exam_session_form" model="ir.ui.view">
+			<field name="name">op.exam.session.form</field>
+			<field name="model">op.exam.session</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Exam Session" >
+					<header>
+						<span groups="base.group_user">
+							<field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"
+								statusbar_colors='{"draft":"red"}' />
+							<button name="act_in_progress" states="draft" type="object" string="Start Session" icon="gtk-go-forward" />
+							<button name="act_done" states="in_progress" type="object" string="Done" />
+							<button name="act_draft" states="done" type="object" string="Set To Draft" />	
+						</span>
+					</header>
+						
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="name" />
+							<field name="code" />
+							<field name= "start_date" />
+							<field name= "end_date" />
+							<field name="responsible_id" widget="many2many_tags"/>
+						</group>
+						<separator string="Exams" />
+						<field name="exam_list" />
+						<field name="note" />
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="view_op_exam_session_search" model="ir.ui.view">
+			<field name="name">op.exam.session.search</field>
+			<field name="model">op.exam.session</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Exam Session">
+					<field name="name" />
+					<field name="code" />
+					<field name= "start_date" />
+					<field name= "end_date" />
+					<field name="state" />
+					<group expand="0" string="Group By...">
+						<filter string="state" domain="[]" context="{'group_by':'state'}" />
+						<filter string="Name" domain="[]" context="{'group_by':'name'}" />
+						<filter string="Code" domain="[]" context="{'group_by':'code'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="act_open_op_exam_session_view">
+			<field name="name">Exam Session</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">op.exam.session</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_op_exam_session_search" />
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_exam_session_view_form">
+			<field name="act_window_id" ref="act_open_op_exam_session_view" />
+			<field name="sequence" eval="20" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_op_exam_session_form" />
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_exam_session_view_tree">
+			<field name="act_window_id" ref="act_open_op_exam_session_view" />
+			<field name="sequence" eval="10" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_op_exam_session_tree" />
+		</record>
+		
+		
+		<!-- View For Exam -->
+		
+		<record id="view_op_exam_tree" model="ir.ui.view">
+			<field name="name">op.exam.tree</field>
+			<field name="model">op.exam</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Exam">
+					<field name="session_id" />
+					<field name="name" />
+					<field name="code" />
+					<field name="course_id" />
+					<field name="batch_id" />
+					<field name="standard_id" />
+					<field name="division_id" />
+					<field name="exam_type" />
+					<field name="start_time" />
+					<field name="end_time" />
+					<field name="total_marks" />
+					<field name="min_marks" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+		<record id="view_op_exam_form" model="ir.ui.view">
+			<field name="name">op.exam.form</field>
+			<field name="model">op.exam</field>
+			<field name="context">{'show_address': 1}</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Exam" >
+					<header>
+						<span groups="base.group_user">
+							<field name="state" widget="statusbar" statusbar_visible="n,h,s,d,c"
+								statusbar_colors='{"c":"red"}' />
+							<button name="act_held" states="n" type="workflow" string="Held Exam"
+								icon="gtk-go-forward" />
+								
+							<button name="act_schedule" states="h" type="workflow"
+								string="Schedule Exam" icon="gtk-go-forward" />
+								
+							<button name="act_cancel" states="n,h,s" type="workflow"
+								string="Cancel" icon="gtk-go-forward" />
+							
+							<button name="act_done" states="s" type="workflow"
+								string="Done" icon="gtk-convert" />
+							
+							<button name="act_new_exam" states="c" type="workflow"
+								string="New Exam" icon="gtk-convert" />
+						</span>
+					</header>
+					<sheet>
+						<button name="generate_result" type="object" string="Generate Result" 
+							icon="gtk-convert"  attrs="{'invisible': [('result_generated','=',True)]}"/>
+								
+						<group colspan="4" col="4">
+							<field name="name" />
+							<field name="code" />
+							<field name="course_id" />
+							<field name="batch_id" domain="[('course_id', '=', course_id)]"/>
+							<field name="standard_id" domain="[('batch_id', '=', batch_id)]"/>
+							<field name="division_id" />
+							<field name="exam_type" />
+							<field name="start_time" />
+							<field name="end_time" />
+							<field name="total_marks" />
+							<field name="min_marks" />
+							<field name="result_generated" readonly="1"/>
+							<field name="session_id" invisible="1"/>
+						</group>
+						<field name="exam_line" />
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="view_op_exam_search" model="ir.ui.view">
+			<field name="name">op.exam.search</field>
+			<field name="model">op.exam</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Exam">
+					<field name="name" />
+					<field name="code" />
+					<field name="batch_id" />
+					<field name="course_id" />
+					<field name="standard_id" />
+					<field name="division_id" />
+					<field name="exam_type" />
+					<field name="state" />
+					<newline />
+					<group expand="0" string="Group By...">
+						<filter string="Batch" domain="[]" context="{'group_by':'batch_id'}" />
+						<filter string="Course" domain="[]" context="{'group_by':'course_id'}" />
+						<filter string="Standard" domain="[]" context="{'group_by':'standard_id'}" />
+						<filter string="Division" domain="[]" context="{'group_by':'division_id'}" />
+						<filter string="Exam Type" domain="[]" context="{'group_by':'exam_type'}" />
+						<filter string="State" domain="[]" context="{'group_by':'state'}" />
+						<filter string="state" domain="[]" context="{'group_by':'state'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="act_open_op_exam_view">
+			<field name="name">Exam</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">op.exam</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_op_exam_search" />
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_exam_view_form">
+			<field name="act_window_id" ref="act_open_op_exam_view" />
+			<field name="sequence" eval="20" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_op_exam_form" />
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_exam_view_tree">
+			<field name="act_window_id" ref="act_open_op_exam_view" />
+			<field name="sequence" eval="10" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_op_exam_tree" />
+		</record>
+		
+		
+		<!-- View For Exam Line -->
+		
+		
+		<record id="view_op_exam_line_tree" model="ir.ui.view">
+			<field name="name">op.exam.line.tree</field>
+			<field name="model">op.exam.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Exam">
+					<field name="subject_id" />
+					<field name="venue" />
+					<field name="start_time" />
+					<field name="end_time" />
+					<field name="hour"/>
+					<field name="total_marks" />
+					<field name="min_marks" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_op_exam_line_form" model="ir.ui.view">
+			<field name="name">op.exam.line.form</field>
+			<field name="model">op.exam.line</field>
+			<field name="context">{'show_address': 1}</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Exam" >
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="subject_id" />
+							<field name="venue" context="{'show_address': 1}" options='{"always_reload": True}' />
+							<field name="start_time" />
+							<field name="end_time" />
+							<field name="total_marks" />
+							<field name="min_marks" />
+							<field name="hour"/>
+						</group>
+						<button name="load_student" type="object" string="Load Student" />
+						<field name="student_exam_marks_line" >
+							<tree editable="bottom">
+								<field name="student_id" readonly="1"/>
+								<field name="check" readonly="1"/>
+					 			<button name="button_present" type="object" string="Pass" icon="terp-check" attrs="{'invisible': [('check', '!=', False)]}"/>
+		             			<button name="button_absent" type="object" string="Fail" icon="terp-dialog-close" attrs="{'invisible': [('check', '!=', True) ]}"/>
+								<field name="obtain_marks" attrs="{'readonly': [('check', '=', False) ]}"/>
+								<field name="hours" />
+								<field name="grade" attrs="{'readonly': [('check', '=', False) ]}"/>
+							</tree>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		
+		<!-- View For Student Exam Marks  -->
+		
+		
+		<record id="view_op_student_exam_marks_tree" model="ir.ui.view">
+			<field name="name">op.student.exam.marks.tree</field>
+			<field name="model">op.student.exam.marks</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Exam Marks">
+					<field name="student_id" />
+                     <field name="check" />
+					 <button name="button_present" type="object" string="Pass" icon="terp-check" attrs="{'invisible': [('check', '!=', False)]}"/>
+		             <button name="button_absent" type="object" string="Fail" icon="terp-dialog-close" attrs="{'invisible': [('check', '!=', True) ]}"/>
+					<field name="obtain_marks" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_op_student_exam_marks_form" model="ir.ui.view">
+			<field name="name">op.student.exam.marks.form</field>
+			<field name="model">op.student.exam.marks</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Exam Marks" >
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="student_id" />
+							<field name="present_absent" />
+							<field name="obtain_marks" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		
+		
+		
+		
+	</data>
+</openerp>

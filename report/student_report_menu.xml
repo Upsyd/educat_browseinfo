@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<report id="student_transcript_report_menu_id" string="Transcript"
+			model="op.student" report_type="qweb-pdf"
+			file="educat_browseinfo.student_transcript_report_template_id" name="educat_browseinfo.student_transcript_report_template_id" />
+
+	</data>
+</openerp>
