@@ -49,28 +49,38 @@
 		<menuitem id="menu_op_school_config" name="Configuration" 
 			parent="menu_op_school_root" sequence="30" groups="group_admin"/>
 		
-		<menuitem id="menu_op_course_sub" name="Courses"
+		
+		<menuitem id="menu_op_degree_sub" name="Degree"
 			parent="menu_op_school_config" sequence="31"
+			action="act_open_op_degree_view" groups="group_admin"/>
+		
+		
+		<menuitem id="menu_op_course_sub" name="Courses"
+			parent="menu_op_school_config" sequence="32"
 			action="act_open_op_course_view" groups="group_admin"/>
 		
 		<menuitem id="menu_op_batch_sub" name="Batches"
-			parent="menu_op_school_config" sequence="32" action="act_open_op_batch_view" groups="group_admin"/>
+			parent="menu_op_school_config" sequence="33" action="act_open_op_batch_view" groups="group_admin"/>
 			
 		<menuitem id="menu_op_standard_sub" name="Standard"
-			parent="menu_op_school_config" sequence="33"
+			parent="menu_op_school_config" sequence="34"
 			action="act_open_op_standard_view" groups="group_admin"/>
 		
 		<menuitem id="menu_op_subject_sub" name="Subjects"
-			parent="menu_op_school_config" sequence="34"
+			parent="menu_op_school_config" sequence="35"
 			action="act_open_op_subject_view" groups="group_admin"/>
 		
 		<menuitem id="menu_op_division_sub" name="Division"
-			parent="menu_op_school_config" sequence="35"
+			parent="menu_op_school_config" sequence="36"
 			action="act_open_op_division_view" groups="group_admin"/>
 		
 		<menuitem id="menu_op_category_sub_student" name="Category"
-			parent="menu_op_school_config" sequence="12"
+			parent="menu_op_school_config" sequence="37"
 			action="act_open_op_category_view" groups="group_admin"/>
+		
+		<menuitem id="menu_op_center_sub_student" name="Center"
+			parent="menu_op_school_config" sequence="37"
+			action="act_open_op_center_view" groups="group_admin"/>
 		
 		
 

@@ -10,7 +10,7 @@
 					<field name="name" />
 					<field name="code" />
 					<field name="payment_term" />
-					<field name="batch_list" />
+					<field name="standard_list" />
 				</tree>
 			</field>
 		</record>
@@ -25,12 +25,11 @@
 						<group colspan="4">
 							<field name="name" />
 							<field name="code" />
-						</group>
-						<group colspan="4">
 							<field name="payment_term" />
+							<field name="batch_id"/>
 						</group>
-						<group string="Batch(s)">
-							<field name="batch_list" nolabel="1"/>
+						<group string="Standard(s)">
+							<field name="standard_list" nolabel="1"/>
 						</group>
 					</sheet>
 				</form>
@@ -44,11 +43,6 @@
 				<search string="Course">
 					<field name="name" />
 					<field name="code" />
-					<newline />
-					<group expand="0" string="Group By...">
-						<filter string="Evaluation Type" domain="[]"
-							context="{'group_by':'evaluation_type'}" />
-					</group>
 				</search>
 			</field>
 		</record>

@@ -24,6 +24,8 @@ from dateutil.relativedelta import relativedelta
 from operator import itemgetter
 import time
 import datetime
+import xlrd 
+import tempfile
 
 import openerp
 from openerp import SUPERUSER_ID
@@ -226,6 +228,7 @@ class op_exam_line(osv.osv):
                 'venue': fields.many2one('res.partner', string='Venue'),
                 'student_exam_marks_line': fields.one2many('op.student.exam.marks', 'exam_line_id', 'Exam Line'),
                 'hour':fields.function(_get_hour,type='float',string='Exam Hours'),
+                'subject_mark_sheet':fields.binary('Add Subject Mark sheet', filters='*.xls,*.xlsx'),
                 }
     def _check_date_time(self, cr, uid, ids, context=None):
         for line in self.browse(cr, uid, ids): 
@@ -238,6 +241,64 @@ class op_exam_line(osv.osv):
         (_check_date_time, 'Start and End Time select a between Session Start and End time.', ['start_time','end_time']),
     ]
     
+    
+    def load_marks(self,  cr, uid, ids, context=None):
+        obj = self.browse(cr, uid, ids)
+        student_marks_pool = self.pool.get('op.student.exam.marks')
+        
+        if obj.subject_mark_sheet:
+            
+            #for delete old entry when user click multiple time this button
+            line_search = self.pool.get('op.student.exam.marks').search(cr, uid, [('exam_line_id','=',obj.id)])
+            if line_search:
+                self.pool.get('op.student.exam.marks').unlink(cr, uid, line_search)
+            
+            file_path = tempfile.gettempdir() +'/file.xls'
+            data = obj.subject_mark_sheet
+            f = open(file_path,'workbook')
+            f.write(data.decode('base64'))
+            f.close()
+            workbook = xlrd.open_workbook(file_path)
+            worksheet = workbook.sheet_by_name('Sheet1')
+            num_rows = worksheet.nrows - 1
+            num_cells = worksheet.ncols - 1
+            curr_row = 0
+            while curr_row < num_rows:
+                curr_row += 1
+                row = worksheet.row(curr_row)
+                print 'Row:', curr_row
+                curr_cell = -1
+                student_list = []
+                while curr_cell < num_cells:
+                    curr_cell += 1
+                    # Cell Types: 0=Empty, 1=Text, 2=Number, 3=Date, 4=Boolean, 5=Error, 6=Blank
+                    cell_type = worksheet.cell_type(curr_row, curr_cell)
+                    cell_value = worksheet.cell_value(curr_row, curr_cell)
+                    print '    ',cell_type,':', cell_value
+                
+                    student_list.append(cell_value)
+                #search student by student ID number
+                student_search = self.pool.get('op.student').search(cr, uid, [('roll_number','=',student_list[0])])
+                
+                if student_search:
+                    student_name = student_search[0]
+                    dic = {}
+                    dic = {
+                           'exam_line_id': obj.id,
+                           'hours':obj.hour,
+                           'student_id': student_name,
+                           'student_id_no': student_list[0],
+                           'check':student_list[1],
+                           'obtain_marks':student_list and student_list[2] or '',
+                           'grade':student_list[3],
+                           
+                           }
+                    student_marks_pool.create(cr, uid, dic)
+                else:
+                    raise osv.except_osv(('Student Not Found'), ('Can not find student having ID %s.') %(student_list[0]))
+        else:
+            raise osv.except_osv(('Fill Data'), ('Enter Subject Mark Sheet.'))
+        return True
 
     def load_student(self, cr, uid, ids, context=None):
         student_marks_pool = self.pool.get('op.student.exam.marks')
@@ -266,7 +327,8 @@ class op_student_exam_marks(osv.osv):
     _columns = {
                 'exam_line_id': fields.many2one('op.exam.line', 'Student Marks'),
                 
-                'student_id': fields.many2one('op.student', 'Student'),
+                'student_id': fields.many2one('op.student', 'Student Name'),
+                'student_id_no': fields.char('Student ID'),
                 'present_absent': fields.boolean('Present/Absent'),
                 'obtain_marks': fields.float('Obtain Marks'),
                 

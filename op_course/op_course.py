@@ -27,9 +27,12 @@ class op_course(osv.osv):
             'name': fields.char(size=32, string='Name', required=True),
             'code': fields.char(size=8, string='Code', required=True),
             'payment_term': fields.many2one('account.payment.term', 'Payment Term'),
-            'batch_list': fields.one2many('op.batch','course_id', 'Batch(s)'),
+            'batch_id': fields.many2one('op.batch','Batch'),
+            'degree_id': fields.many2one('op.degree', 'Degree'),
+            'standard_list': fields.one2many('op.standard', 'course_id', 'Standard(s)')
+            
+            
             
     }
 
-op_course()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

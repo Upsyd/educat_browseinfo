@@ -28,10 +28,7 @@ class op_batch(osv.osv):
             'name': fields.char(size=32, string='Name', required=True),
             'start_date': fields.date(string='Start Date', required=True),
             'end_date': fields.date(string='End Date', required=True),
-            
-            'standard_list': fields.one2many('op.standard','batch_id', 'Standard(s)'),
-            
-            'course_id': fields.many2one('op.course', string='Course'),
+            'course_list': fields.one2many('op.course', 'batch_id', 'Course(s)'),
     }
 
 op_batch()

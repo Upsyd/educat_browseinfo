@@ -29,13 +29,12 @@ class op_standard(osv.osv):
             'name': fields.char(size=32, string='Name', required=True),
             'payment_term': fields.many2one('account.payment.term', 'Payment Term'),
             'sequence':fields.integer('Sequence'),
+            'course_id': fields.many2one('op.course','Course'),
             
-            'subject_list': fields.one2many('op.subject', 'standard_id', 'Subjects'),
-            
-            'batch_id': fields.many2one('op.batch', string='Batch'),
+            'subject_ids': fields.many2many('op.subject', 'subject_id', 'standard_id', 'subject_standard_rel', 'Subject(s)'),
+#             'subject_list': fields.one2many('op.subject', 'standard_id', 'Subjects'),
             
             
     }
 
-op_standard()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

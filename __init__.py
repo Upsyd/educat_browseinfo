@@ -19,6 +19,7 @@
 #
 ##############################################################################
 import controllers
+import op_degree
 import op_batch
 import op_category
 import op_course

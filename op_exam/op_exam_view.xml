@@ -257,10 +257,16 @@
 							<field name="min_marks" />
 							<field name="hour"/>
 						</group>
-						<button name="load_student" type="object" string="Load Student" />
+						
+						<group>
+							<field name="subject_mark_sheet" />
+						</group>
+						<button name="load_marks" type="object" string="Load Student" />
+						
 						<field name="student_exam_marks_line" >
 							<tree editable="bottom">
 								<field name="student_id" readonly="1"/>
+								<field name="student_id_no" readonly="1"/>
 								<field name="check" readonly="1"/>
 					 			<button name="button_present" type="object" string="Pass" icon="terp-check" attrs="{'invisible': [('check', '!=', False)]}"/>
 		             			<button name="button_absent" type="object" string="Fail" icon="terp-dialog-close" attrs="{'invisible': [('check', '!=', True) ]}"/>
@@ -302,6 +308,7 @@
 					<sheet>
 						<group colspan="4" col="4">
 							<field name="student_id" />
+							<field name="student_id_no" />
 							<field name="present_absent" />
 							<field name="obtain_marks" />
 						</group>

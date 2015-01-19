@@ -38,13 +38,14 @@ class op_admission(osv.osv):
 
     _columns = {
             'name': fields.char(size=128, string='First Name', required=True, states={'done':[('readonly',True)]}),
-            'middle_name': fields.char(size=128, string='Middle Name', required=True, states={'done':[('readonly',True)]}),
+            'middle_name': fields.char(size=128, string='Middle Name', states={'done':[('readonly',True)]}),
             'last_name': fields.char(size=128, string='Last Name', required=True, states={'done': [('readonly', True)]}),
             'title': fields.many2one('res.partner.title','Title', states={'done': [('readonly', True)]}),
             'application_number': fields.char(size=16, string='Application Number', required=True, states={'done': [('readonly', True)]}),
             'admission_date': fields.date(string='Admission Date', required=True, states={'done': [('readonly', True)]}),
             'application_date': fields.datetime(string='Application Date', required=True, states={'done': [('readonly', True)]}),
             'birth_date': fields.date(string='Birth Date', required=True, states={'done': [('readonly', True)]}),
+            'degree_id': fields.many2one('op.degree', 'Degree',required=True, states={'done': [('readonly', True)]}),
             'course_id': fields.many2one('op.course', string='Course', required=True, states={'done': [('readonly', True)]}),
             'batch_id': fields.many2one('op.batch', string='Batch', required=True, states={'done': [('readonly', True)]}),
             'street': fields.char(size=256, string='Street', states={'done': [('readonly', True)]}),
@@ -56,6 +57,9 @@ class op_admission(osv.osv):
             'zip': fields.char(size=8, string='Zip', states={'done': [('readonly', True)]}),
             'state_id': fields.many2one('res.country.state', string='States', states={'done': [('readonly', True)]}),
             'country_id': fields.many2one('res.country', string='Country', states={'done': [('readonly', True)]}),
+            
+            'state_province': fields.char('State / Province'),
+            
             'fees': fields.float(string='Fees', states={'done': [('readonly', True)]}),
             'photo': fields.binary(string='Photo', states={'done': [('readonly', True)]}),
             'state': fields.selection([('d','Draft'),('i','Confirm'),('s','Enroll'), ('done','Done') ,('r','Rejected'),('p','Pending'),('c','Cancel')],readonly=True,select=True, string='State'),
@@ -77,6 +81,9 @@ class op_admission(osv.osv):
             'gr_no_new': fields.char(string="GR Number new", size=10),
             'invoice_id': fields.many2one('account.invoice', 'Invoice'),
             'invoice_bool': fields.boolean('Invoiced', readonly=True),
+            'center_no': fields.many2one('op.center', 'Center'),
+            'nearest_center': fields.many2one('op.center', 'Nearest Center'),
+            
     }
 
     _defaults = {
@@ -200,10 +207,13 @@ class op_admission(osv.osv):
                     'course_id': field.course_id and field.course_id.id or False,
                     'batch_id': field.batch_id and field.batch_id.id or False,
                     'standard_id': field.standard_id and field.standard_id.id or False,
+                    'degree_id': field.degree_id.id,
                     'religion': field.religion_id and field.religion_id.id or False,
                     'photo': field.photo or False,
                     'gr': gr,
                     'user_id': user_id or False,
+                    'center_no': field.center_no.id,
+                    'nearest_center': field.nearest_center.id,
                     'address':[(0,0,{
                                      'name': field.name or False,
                                      'type': 'invoice',

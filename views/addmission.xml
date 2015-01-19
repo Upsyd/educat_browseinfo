@@ -40,7 +40,7 @@
                                <label class="col-md-3 col-sm-4 control-label" for="middle_name">Middle name: </label>
                                <div class="col-md-7 col-sm-8">
 
-                                   <input type="text" class="form-control" name="middle_name" placeholder="Middle name" required="False"/>
+                                   <input type="text" class="form-control" name="middle_name" placeholder="Middle name"/>
                                </div>
                            </div>
                            <div class="form-group ">
@@ -712,13 +712,13 @@
                            </div>
                            <p></p>
                            <div class="form-group ">
-                                   <label class="" for="Code_1"><span style="padding-left:212px">City Code</span></label>
+                                   <label class="" for="Code_1"><span style="padding-left:212px">Country Code</span></label>
                                    <label class="" for="Code_1"><span style="padding-left:100px">Local Number</span></label>
                                    <label class="" for="Code_1"><span style="padding-left:100px">Type</span></label>
                            </div>
                            <div class="form-group ">
                                    <label class="" for="Code_1" style="margin-left: 95px;">Telephone 1: </label>
-                                   <input type="text" class="" name="Code_1" placeholder="City Code" style="     margin-left: 25px;     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:120px; border-radius: 4px; "/>
+                                   <input type="text" class="" name="Code_1" placeholder="Country Code" style="     margin-left: 25px;     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:120px; border-radius: 4px; "/>
                                    <input type="text" class="" name="number_1" placeholder="Number" required="true" style=" padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;"/>
                                    <select class="" name="tel_type_1" required="true" style=" padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;">
                                        <option value="worked">Worked</option>
@@ -728,9 +728,9 @@
                            </div>
                            <div class="form-group ">
                                    <label class="" for="Code_2" style="margin-left: 95px;">Telephone 2: </label>
-                                   <input type="text" class="" name="Code_2" placeholder="City Code" style="     margin-left: 25px;     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:120px; border-radius: 4px;"/>
-                                   <input type="text" class="" name="number_2" required="true" placeholder="Number" style="     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;"/>
-                                   <select class="" name="tel_type_2" required="true" style="     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;">
+                                   <input type="text" class="" name="Code_2" placeholder="Country Code" style="     margin-left: 25px;     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:120px; border-radius: 4px;"/>
+                                   <input type="text" class="" name="number_2" placeholder="Number" style="     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;"/>
+                                   <select class="" name="tel_type_2" style="     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;">
                                        <option value="worked">Worked</option>
                                        <option value="home">Home</option>
                                        <option value="cell">Cell</option>
@@ -738,9 +738,9 @@
                            </div>
                            <div class="form-group ">
                                    <label class="" for="Code_3" style="margin-left: 95px;">Telephone 3: </label>
-                                   <input type="text" class="" name="Code_3" placeholder="City Code" style="     margin-left: 25px;     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:120px; border-radius: 4px;"/>
+                                   <input type="text" class="" name="Code_3" placeholder="Country Code" style="     margin-left: 25px;     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:120px; border-radius: 4px;"/>
                                    <input type="text" class="" name="number_3" placeholder="Number" style="     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;"/>
-                                   <select class="" name="tel_type_3" style="     padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;">
+                                   <select class="" name="tel_type_3" style="padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border: 1px solid #ccc; width:212px; border-radius: 4px;">
                                        <option value="worked">Worked</option>
                                        <option value="home">Home</option>
                                        <option value="cell">Cell</option>

@@ -11,7 +11,7 @@
 					<field name="name" />
 					<field name="start_date" />
 					<field name="end_date" />
-					<field name="course_id" />
+					<field name="course_list" />
 				</tree>
 			</field>
 		</record>
@@ -28,10 +28,9 @@
 							<field name="code" />
 							<field name="start_date" />
 							<field name="end_date" />
-							<field name="course_id" invisible="1" />
 						</group>
-						<separator colspan="4" string="Standards" />
-						<field name="standard_list" />
+						<separator colspan="4" string="Course" />
+						<field name="course_list" nolabel="1"/>
 					</sheet>
 				</form>
 			</field>
@@ -46,13 +45,10 @@
 					<field name="name" />
 					<field name="start_date" />
 					<field name="end_date" />
-					<field name="course_id" />
 					<newline />
 					<group expand="0" string="Group By...">
-						<filter string="Start Date" domain="[]"
-							context="{'group_by':'start_date'}" />
+						<filter string="Start Date" domain="[]" context="{'group_by':'start_date'}" />
 						<filter string="End Date" domain="[]" context="{'group_by':'end_date'}" />
-						<filter string="Course" domain="[]" context="{'group_by':'course_id'}" />
 					</group>
 				</search>
 			</field>

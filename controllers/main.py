@@ -3,15 +3,34 @@ import werkzeug
 from openerp.addons.web import controllers
 import openerp.http as http
 from openerp.http import request
+import cStringIO
+import datetime
+from itertools import islice
+import json
+import xml.etree.ElementTree as ET
 
+import logging
+import re
+
+import werkzeug.utils
+import urllib2
+import werkzeug.wrappers
+from PIL import Image
+
+import openerp
+from openerp.addons.web import http
+from openerp.http import request, STATIC_CACHE
+from openerp.tools import image_save_for_web
 class educat_browseinfo(http.Controller):
 
-    def form_value(self):
-        cr, uid, context, pool = request.cr, request.uid, request.context, request.registry
-        category_obj = pool['op.category']
-        course_obj = pool['op.course']
-        batch_obj = pool['op.batch']
-        standard_obj = pool['op.standard']
+    @http.route('/addmission/', type='http', auth="public", website=True)
+    def addmission(self,**post):
+        cr, uid, context, registry = request.cr, openerp.SUPERUSER_ID, request.context, request.registry
+
+        category_obj = registry['op.category']
+        course_obj = registry['op.course']
+        batch_obj = registry['op.batch']
+        standard_obj = registry['op.standard']
 
         category_ids = category_obj.search(cr, uid, [], context=context)
         course_ids = course_obj.search(cr, uid, [], context=context)
@@ -29,19 +48,13 @@ class educat_browseinfo(http.Controller):
                 'batch':batch,
                 'standard':standard,
                  }
-        return value
 
-
-    @http.route('/addmission/', type='http', auth="public", website=True)
-    def addmission(self,**post):
-        cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
-        values = self.form_value()
-        return request.website.render("educat_browseinfo.addmission",values)
+        return request.website.render("educat_browseinfo.addmission",value)
 
     @http.route('/addmission/success_login/', type='http', auth="public", website=True)
     def success_login(self,**form_data):
         #Start code for send E-mail to user at time of submit admission form.
-        cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
+        cr, uid, context, registry = request.cr, openerp.SUPERUSER_ID, request.context, request.registry
         orm_partner = registry.get('op.admission')
         vals = {
                     'name': form_data.get('name'),
@@ -78,11 +91,11 @@ class educat_browseinfo(http.Controller):
                     'email_to': mail_to,
                     'email_from': admin_email,
                     }
-        
+
         mail_ids.append(mail_mail.create(cr, uid, vals, context=context))
         mail_mail.send(cr, uid, mail_ids, auto_commit=True, context=context)
         #End code for send E-mail to user at time of submit admission form.
-        
+
         #start code for send SMS to user at time of submit admission form.
         message = "Hello ur admission submit."
         cont={

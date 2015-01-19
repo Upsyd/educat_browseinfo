@@ -124,6 +124,9 @@
 							<field name="birth_date" />
 							<!-- <field name="id_number" /> -->
 							<field name="roll_number" />
+							<field name="seq_code" invisible="1"/>
+							<field name="center_no" />
+							<field name="nearest_center"/>
 						</group>
 						<notebook colspan="4">
 							<page string="Details">
@@ -151,30 +154,27 @@
 									<div name="div_address">
 										<field name="street" placeholder="Street..." />
 										<field name="street2" placeholder="Street2" />
+										<field name="country_id" placeholder="Country" class="oe_no_button"
+											options='{"no_open": True}' />
 										<div class="address_format">
 											<field name="city" placeholder="City" style="width: 40%%" />
 											<field name="state_id" class="oe_no_button"
-												placeholder="State" style="width: 37%%" options='{"no_open": True}' />
+												placeholder="State" style="width: 37%%" options='{"no_open": True}' domain="[('country_id','=',country_id)]" />
 											<field name="zip" placeholder="ZIP" style="width: 20%%" />
 										</div>
-										<field name="country_id" placeholder="Country" class="oe_no_button"
-											options='{"no_open": True}' />
+										<field name="state_province" placeholder="State / Province"/>
 									</div>
 								</group>
 							</page>
 							<page string="Educational">
 								<separator colspan="4" string="Educational Detail" />
 								<group col="4" colspan="4">
-									<field name="course_id" />
-									<field name="batch_id" domain="[('course_id', '=', course_id)]"/>
-									<field name="standard_id" domain="[('batch_id', '=', batch_id)]"/>
+									<field name="degree_id" />
+									<field name="batch_id"/>
+									<field name="course_id" domain="[('batch_id','=',batch_id)]"/>
+									<field name="standard_id" domain="[('course_id','=',course_id)]"/>
 									<field name="division_id" />
 									<field name="gr_no" />
-									<field name="roll_number_line" colspan="4" nolabel="1"
-										context="{'default_course_id':course_id,
-                                     'default_batch_id':batch_id,
-                                     'default_standard_id':standard_id,
-                                     'default_division_id':division_id}" />
 								</group>
 							</page>
 							<page string="Parent">

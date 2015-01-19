@@ -41,7 +41,7 @@ class op_subject(osv.osv):
             'type': fields.selection([('p','Practial'),('t','Theory'),('pt','Both'),('o','Other')], string='Type'),
             'elective': fields.boolean('Elective'),
             
-            'standard_id': fields.many2one('op.standard','Standard'),
+#             'standard_id': fields.many2one('op.standard','Standard'),
             
             
             

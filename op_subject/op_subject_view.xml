@@ -13,7 +13,7 @@
 					<field name="grade_waitage" />
 					<field name="type" />
 					<field name="elective" />
-					<field name="standard_id" />
+<!-- 					<field name="standard_id" /> -->
 				</tree>
 			</field>
 		</record>
@@ -31,7 +31,7 @@
 							<field name="type" />
 							<field name="grade_waitage" />
 							<field name="elective" />
-							<field name="standard_id" invisible="1" />
+<!-- 							<field name="standard_id" invisible="1" /> -->
 						</group>
 					</sheet>
 				</form>
@@ -49,12 +49,12 @@
 					<field name="grade_waitage" />
 					<field name="type" />
 					<field name="elective" />
-					<field name="standard_id" />
+<!-- 					<field name="standard_id" /> -->
 					<newline />
 					<group expand="0" string="Group By...">
 						<filter string="Type" domain="[]" context="{'group_by':'type'}" />
 						<filter string="Elective" domain="[]" context="{'group_by':'elective'}" />
-						<filter string="Standard" domain="[]" context="{'group_by':'standard_id'}" />
+<!-- 						<filter string="Standard" domain="[]" context="{'group_by':'standard_id'}" /> -->
 					</group>
 				</search>
 			</field>

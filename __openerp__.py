@@ -31,6 +31,7 @@
 
     "data" : [
               'security/security.xml',
+              'op_degree/op_degree_view.xml',
               'op_batch/op_batch_view.xml',
               'op_category/op_category_view.xml',
               'op_course/op_course_view.xml',
@@ -39,6 +40,9 @@
               'op_standard/op_standard_view.xml',
 #               'op_student/op_select_sem_view.xml',
               'op_roll_number/op_roll_number_view.xml',
+
+              'op_student/op_center_view.xml',
+              'op_student/student_sequence.xml',
               'op_student/op_parent_view.xml',
               'op_student/op_student_view.xml',
               'op_subject/op_subject_view.xml',

@@ -10,7 +10,7 @@
 					<field name="code" />
 					<field name="name" />
 					<field name="payment_term" />
-					<field name="batch_id"/>
+					<field name="course_id"/>
 				</tree>
 			</field>
 		</record>
@@ -29,8 +29,8 @@
 							<field name="payment_term" />
 						</group>
 						<separator colspan="4" string="Subjects" />
-						<field name="subject_list" />
-						<field name="batch_id" invisible="1"/>
+						<field name="subject_ids" />
+						<field name="course_id" invisible="1"/>
 					</sheet>
 				</form>
 			</field>
@@ -43,10 +43,10 @@
 				<search string="Standard">
 					<field name="code" />
 					<field name="name" />
-					<field name="batch_id"/>
+					<field name="course_id"/>
 					<newline />
 					<group expand="0" string="Group By...">
-						<filter string="Batch" domain="[]" context="{'group_by':'batch_id'}" />
+						<filter string="Course" domain="[]" context="{'group_by':'course_id'}" />
 					</group>
 				</search>
 			</field>
