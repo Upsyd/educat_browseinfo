@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	
+		
+		<record id="view_op_select_sem_tree" model="ir.ui.view">
+			<field name="name">op.select.sem.tree</field>
+			<field name="model">op.select.sem</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Selection Subject Semester Wise">
+<!-- 					<field name="course_id"/> -->
+					<field name="select_sem_line"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="view_op_select_sem_form" model="ir.ui.view">
+			<field name="name">op.select.sem.form</field>
+			<field name="model">op.select.sem</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Selection of Subject Semester Wise">
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="course_id" />
+						</group>
+						<separator string="Selection Of Subject Semester Wise" colspan="4" />
+						<field name="select_sem_line" nolabel="1">
+							<tree>
+								<field name="seq" />
+								<field name="name" />
+								<field name="subject_line" />
+							</tree>
+							<form>
+								<group colspan="4" col="4">
+									<field name="seq" />
+									<field name="name" />
+								</group>
+								<field name="subject_line" >
+									<tree>
+										<field name="name" />
+										<field name="code" />
+										<field name="elective" />
+										<field name="sub_line" attrs="{'invisible':[('elective','=',False)]}"/>
+									</tree>
+									<form>
+										<group colspan="4" col="4">
+											<field name="name" />
+											<field name="code" />
+											<field name="elective" />
+										</group>
+										<field name="sub_line" attrs="{'invisible':[('elective','=',False)]}">
+											<tree editable="bottom">
+												<field name="name" />
+												<field name="code" />
+												<field name="type" />
+											</tree>
+										</field>
+									</form>
+								</field>
+							</form>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<!-- 
+		
+		<record id="view_op_select_sem_search" model="ir.ui.view">
+			<field name="name">op.select.sem.search</field>
+			<field name="model">op.select.sem</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Select Semester">
+					<field name="course_id" />
+					<newline />
+					<group expand="0" string="Group By...">
+						<filter string="Course" domain="[]" context="{'group_by':'course_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+		 -->
+		
+		<record model="ir.actions.act_window" id="act_open_op_select_sem_view">
+			<field name="name">Selection of Subject Semester Wise</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">op.select.sem</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_op_select_sem_search" />
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_select_sem_view_form">
+			<field name="act_window_id" ref="act_open_op_select_sem_view" />
+			<field name="sequence" eval="20" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_op_select_sem_form" />
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_select_sem_view_tree">
+			<field name="act_window_id" ref="act_open_op_select_sem_view" />
+			<field name="sequence" eval="10" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_op_select_sem_tree" />
+		</record>
+		
+	</data>
+</openerp>

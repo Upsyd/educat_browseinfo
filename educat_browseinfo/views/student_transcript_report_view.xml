@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="student_transcript_report_template_id">
+			<div class="page">
+				<t t-foreach="docs" t-as="o">
+					<div class="main">
+						<div class="col-xs-1 text-left">
+							<p>
+								<b>NAME</b>
+							</p>
+							<p>
+								<b>MAJOR</b>
+							</p>
+						</div>
+						<div class="col-xs-8 text-left">
+							<p>
+								<span t-field="o.name" />
+								<span t-field="o.middle_name" />
+								<span t-field="o.last_name" />
+							</p>
+<!-- 							<p> -->
+<!-- 								<span t-field="o.course_id" /> -->
+<!-- 							</p> -->
+						</div>
+						<div class="col-xs-3">
+							<b>ID#</b>
+						</div>
+
+						<t t-foreach="o.marksheet_line" t-as="marksheet">
+							<table style="width:100%">
+								<tr>
+									<td>
+										<div class="col-xs-12">
+											<span>
+												<b>
+													<u>
+														<span t-field="marksheet.exam_id" />
+													</u>
+												</b>
+											</span>
+										</div>
+										<div t-if="marksheet.marksheet_line">
+											<table style="width:100%">
+												<tr>
+													<th class="col-xs-2 text-left">COURSE CODE</th>
+													<th class="col-xs-7 text-left">COURSE TITLE</th>
+													<th class="col-xs-1 text-center">HOURSE</th>
+													<th class="col-xs-1 text-center">GRADE</th>
+													<th class="col-xs-1 text-center">POINTS</th>
+												</tr>
+												<t t-foreach="marksheet.marksheet_line" t-as="subject">
+													<tr>
+														<th class="col-xs-2 text-left">
+															<span t-field="subject.subject_id.code" />
+														</th>
+														<td class="col-xs-7 text-left">
+															<span t-field="subject.subject_id" />
+														</td>
+														<td class="col-xs-1 text-center">
+															<span t-field="subject.hours" />
+														</td>
+														<td class="col-xs-1 text-center">
+															<span t-field="subject.grade" />
+														</td>
+														<td class="col-xs-1 text-center">
+															<span t-field="subject.marks" />
+														</td>
+													</tr>
+												</t>
+												<tr>
+													<th class="col-xs-2 text-left">
+													</th>
+													<td class="col-xs-7 text-left">
+													</td>
+													<td class="col-xs-1 text-center">
+														<b>
+															<span t-esc="get_sub_total_hour(marksheet.marksheet_line)" />
+														</b>
+													</td>
+													<td class="col-xs-1 text-center"></td>
+													<td class="col-xs-1 text-center">
+														<b>
+															<span t-esc="get_sub_total_point(marksheet.marksheet_line)" />
+														</b>
+													</td>
+												</tr>
+												<tr t-if="get_hour(marksheet.marksheet_line) != get_total_hour()">
+													<th class="col-xs-2 text-left"></th>
+													<td class="col-xs-7 text-left"></td>
+													<td class="col-xs-1 text-center">
+														<b>
+															<span t-esc="get_total_hour()" />
+														</b>
+													</td>
+													<td class="col-xs-1 text-center"></td>
+													<td class="col-xs-1 text-center">
+														<b>
+															<span t-esc="get_total_point()" />
+														</b>
+													</td>
+												</tr>
+											</table>
+
+										</div>
+
+										<div class="col-xs-4 text-right">
+											<p>
+												<b>GPA</b>
+											</p>
+											<p>
+												<b>CUMMULATIVE GPA</b>
+											</p>
+										</div>
+										<div class="col-xs-2"></div>
+										<div class="col-xs-6">
+											<p>
+												<b>
+													<span t-esc="('%.2f'%get_gpa(marksheet.marksheet_line))" />
+												</b>
+											</p>
+											<p>
+												<b>
+													<span t-esc="('%.2f'%get_cgpa())" />
+												</b>
+											</p>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</t>
+
+					</div>
+				</t>
+			</div>
+
+		</template>
+	</data>
+</openerp>

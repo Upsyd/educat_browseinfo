@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+		
+		<!-- View For Mark Sheet -->
+		
+		<record id="view_op_marksheet_tree" model="ir.ui.view">
+			<field name="name">op.marksheet.tree</field>
+			<field name="model">op.marksheet</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Marksheet">
+					<field name="student_id" />
+					<field name="batch_id" />
+<!-- 					<field name="course_id" /> -->
+<!-- 					<field name="standard_id" /> -->
+					<field name="division_id" />
+					<field name="exam_id"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_op_marksheet_form" model="ir.ui.view">
+			<field name="name">op.marksheet.form</field>
+			<field name="model">op.marksheet</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Marksheet" >
+					<header>
+						<button name="print_marksheet" string="Mark Sheet Report" 
+							type="object" icon="gtk-print" groups="educat_browseinfo.group_admin" />
+					</header>
+					<sheet>
+						<group colspan="4" col="4">
+							<field name="student_id" />
+							<field name="batch_id" />
+<!-- 							<field name="course_id" /> -->
+<!-- 							<field name="standard_id" /> -->
+							<field name="division_id" />
+							<field name="exam_id"/>
+						</group>
+						<group colspan="4" col="4">
+							<field name="marksheet_line" nolabel="1">
+								<tree editable="bottom">
+									<field name="subject_id" />
+									<field name="present_absent" />
+									<field name="marks" />
+									<field name="hours" />
+									<field name="grade" />
+								</tree>
+							</field>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="view_op_marksheet_search" model="ir.ui.view">
+			<field name="name">op.marksheet.search</field>
+			<field name="model">op.marksheet</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Marksheet">
+					<field name="student_id" />
+					<field name="batch_id" />
+<!-- 					<field name="course_id" /> -->
+<!-- 					<field name="standard_id" /> -->
+					<field name="division_id" />
+					<field name="exam_id"/>
+					<newline />
+					<group expand="0" string="Group By...">
+						<filter string="Student" domain="[]" context="{'group_by':'student_id'}" />
+						<filter string="Batch" domain="[]" context="{'group_by':'batch_id'}" />
+<!-- 						<filter string="Course" domain="[]" context="{'group_by':'course_id'}" /> -->
+<!-- 						<filter string="Standard" domain="[]" context="{'group_by':'standard_id'}" /> -->
+						<filter string="Division" domain="[]" context="{'group_by':'division_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="act_open_op_marksheet_view">
+			<field name="name">Marksheet</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">op.marksheet</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_op_marksheet_search" />
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_marksheet_view_form">
+			<field name="act_window_id" ref="act_open_op_marksheet_view" />
+			<field name="sequence" eval="20" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_op_marksheet_form" />
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_marksheet_view_tree">
+			<field name="act_window_id" ref="act_open_op_marksheet_view" />
+			<field name="sequence" eval="10" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_op_marksheet_tree" />
+		</record>
+		
+		
+		
+		<!-- View For Mark Sheet Line -->
+		
+		
+	
+		<record id="view_op_marksheet_line_tree" model="ir.ui.view">
+			<field name="name">op.marksheet.line.tree</field>
+			<field name="model">op.marksheet.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Marksheet Line">
+					<field name="subject_id" />
+					<field name="present_absent" />
+					<field name="marks" />
+					<field name="hours" />
+					<field name="grade" />
+				</tree>
+			</field>
+		</record>
+		<record id="view_op_marksheet_line_form" model="ir.ui.view">
+			<field name="name">op.marksheet.line.form</field>
+			<field name="model">op.marksheet.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Marksheet Line" version="7.0">
+					<sheet>
+						<separator colspan="4" string="Marksheet Line" />
+						<group colspan="4" col="4">
+							<field name="subject_id" />
+							<field name="present_absent" />
+							<field name="marks" />
+							<field name="hours" />
+							<field name="grade" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="view_op_marksheet_line_search" model="ir.ui.view">
+			<field name="name">op.marksheet.line.search</field>
+			<field name="model">op.marksheet.line</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Marksheet Line">
+					<field name="subject_id" />
+					<field name="present_absent" />
+					<field name="marks" />
+					<newline />
+					<group expand="0" string="Group By...">
+						<filter string="Subject" domain="[]" context="{'group_by':'subject_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="act_open_op_marksheet_line_view">
+			<field name="name">Marksheet Line</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">op.marksheet.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_op_marksheet_line_search" />
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_marksheet_line_view_form">
+			<field name="act_window_id" ref="act_open_op_marksheet_line_view" />
+			<field name="sequence" eval="20" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_op_marksheet_line_form" />
+		</record>
+		<record model="ir.actions.act_window.view" id="act_open_op_marksheet_line_view_tree">
+			<field name="act_window_id" ref="act_open_op_marksheet_line_view" />
+			<field name="sequence" eval="10" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_op_marksheet_line_tree" />
+		</record>
+	</data>
+</openerp>

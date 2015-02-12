@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+vlidation for radio
+put required fields as per object column
+put right side content position(carousel)
+controller handle all data and save into db.-->
+
+<openerp>
+    <data>
+        <!-- Layout and common templates -->
+        <template id="header" inherit_id="website.layout" name="Get Addmission">
+            <xpath expr="//ul[@id='top_menu']" position="inside">
+                 <li>
+                     <a href="/addmission/">Get Admission</a>
+                 </li>
+            </xpath>
+        </template>
+
+        <template id="addmission" name="Form">
+          <t t-call="website.layout">
+          	<script type="text/javascript" src="/web/static/lib/jquery/jquery.js"></script>
+          	<script type="text/javascript" src="/educat_browseinfo/static/src/js/main.js"></script>
+          	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+         	<div id="wrap">
+           	<div class="oe_structure"></div>
+           	<div class="container">
+               	<h3>Online Application</h3>
+               	<div class="row">
+               		<div class="col-md-8">
+                       	<div class="oe_structure">
+                           <div>
+                               <p>General Application form for admission at Zamcol</p>
+                           </div>
+                       	</div>
+                       	<form id="main_form" action="/addmission/success_login/" method="post" class="form-horizontal mt8" enctype="multipart/form-data">
+                       		<div id="page1">
+                       		<div class="row"> <!--page 1-->
+								<div class="col-md-10" style="border-bottom:1px dotted #CCC; margin-top:15px; margin-bottom:15px;">
+									<h5 class="gf_progressbar_title">Step 1 of 3 - PERSONAL DETAILS </h5>
+								</div>
+							</div>
+							<div class="row">
+  								<div class="col-md-10">
+									<label for="name">Name<span style="color:#790000;"> *</span></label>
+  								</div>
+  								<div class="col-xs-6 col-md-5">
+  									<input type="text" class="form-control" name="name" required="true"/>
+  									<label for="name" style="font-weight:lighter;" class="small">First</label>
+								</div>
+								<div class="col-xs-6 col-md-5">
+									<input type="text" class="form-control" name="last_name" required="true"/>
+									<label for="last_name" style="font-weight:lighter;" class="small">Last</label>
+								</div>
+							</div>
+							<div class="row" style="margin-top:10px;">
+  								<div class="col-md-10">
+									<label for="email">Email</label>
+  								</div>
+  								<div class="col-xs-6 col-md-5">
+  									<input type="email" class="form-control" name="email"/>
+  									<label for="email" style="font-weight:lighter;" class="small">Enter Email</label>
+								</div>
+								<div class="col-xs-6 col-md-5">
+									<input type="email" class="form-control" name="confirm_email"/>
+									<label for="confirm_email" style="font-weight:lighter;" class="small">Confirm Email</label>
+								</div>
+							</div>
+							<div class="row" style="margin-top:10px;">
+  								<div class="col-xs-4 col-md-3">
+  									<label for="phone">Phone Number<span style="color:#790000;"> *</span></label>
+  									<input type="text" class="form-control" name="phone" required="true"/>
+								</div>
+								<div class="col-xs-3 col-md-2">
+								</div>
+								<div class="col-xs-4 col-md-3">
+									<label for="alt_phone">Alternate Number</label>
+									<input type="text" class="form-control" name="alt_phone" />
+								</div>
+							</div>
+							<div class="row" style="margin-top:10px;">
+  								<div class="col-md-10">
+  									<label for="postal">Postal Address</label>
+  									<input type="text" class="form-control" name="postal" />
+								</div>
+							</div>
+							<div class="row" style="margin-top:10px;">
+  								<div id="cit" class="col-xs-6 col-md-5">
+									<label for="citizen">Are you a citizen of Zambia?<span style="color:#790000;"> *</span></label>
+									<div class="radio">
+										<label>
+											<input type="radio" name="citizen" id="citiz" value="yes"/>
+											Yes
+										</label>
+									</div>
+									<div class="radio">
+										<label>
+											<input type="radio" name="citizen" id="not_citiz" value="no"/>
+											No
+										</label>
+									</div>
+								</div>
+								<div id="citizenship" class="col-xs-6 col-md-5" style="display:none;">
+									<label for="country_citizenchip" style="font-weight:lighter;" class="small">Country</label>
+									<input type="text" class="form-control" required="true" id="country_citizenchip" name="country_citizenchip"/>
+								</div>
+							</div>
+							<div class="row" style="margin-top:10px;">
+  								<div id="nrc" class="col-xs-4 col-md-3" style="display:none;">
+  									<label for="NRC">N.R.C Number<span style="color:#790000;"> *</span></label>
+  									<input type="text" class="form-control" name="NRC" required="true"/>
+								</div>
+								<div id="passport" class="col-xs-4 col-md-3" style="display:none;">
+  									<label for="passport">Passport Number<span style="color:#790000;"> *</span></label>
+  									<input type="text" class="form-control" name="passport" required="true"/>
+								</div>
+								<div class="col-xs-3 col-md-3">
+									<label for="birth_date">Date of Birth<span style="color:#790000;"> *</span></label>
+                                   	<input id="datetimepicker" type="text" name="birth_date" required="true"></input>
+								</div>
+								<div class="col-xs-4 col-md-3">
+									<label for="gender">Gender<span style="color:#790000;"> *</span></label>
+                                    <select class="form-control" name="gender" required="true">
+                                       <option value="">Select one</option>
+                                       <option value="m">Male</option>
+                                       <option value="f">Female</option>
+                                       <option value="o">Other</option>
+                                    </select>
+								</div>
+							</div>
+							<div class="row" style="margin-top:10px;">
+  								<div class="col-md-10">
+  									<label for="address">Residential Address<span style="color:#790000;"> *</span></label>
+  									<input type="text" class="form-control" name="address" required="true"/>
+  									<label for="address" style="font-weight:lighter;" class="small">Street Address</label>
+								</div>
+							</div>
+							<div class="row">
+  								<div class="col-xs-6 col-md-5">
+  									<input type="text" class="form-control" name="city" required="true"/>
+  									<label for="city" style="font-weight:lighter;" class="small">City</label>
+								</div>
+								<div class="col-xs-6 col-md-5">
+									<input type="text" class="form-control" required="true" id="sele" name="country_id"/>
+									<label for="country_id" style="font-weight:lighter;" class="small">Country</label>
+								</div>
+
+							</div>
+							<div class="row">
+  								<div class="col-xs-6 col-md-5">
+  									<input type="text" class="form-control" name="zip" required="true"/>
+  									<label for="zip" style="font-weight:lighter;" class="small">ZIP / Postal Code</label>
+								</div>
+								<div class="col-xs-6 col-md-5">
+									<input type="text" class="form-control" id="state" name="state_id" required="true"/>
+									<label for="state" style="font-weight:lighter;" class="small">State / Province / Region</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10" style="border-top:1px dotted #CCC; border-bottom:1px dotted #CCC; margin-top:15px; margin-bottom:15px;">
+                         			<input type="button" id="gform_next_button_2_4" style="margin-top:15px; margin-bottom:30px;"
+                         				class="button" value="Next" tabindex="21"/>
+               					</div>
+                    		</div>
+                    		</div>
+                    		<div id="page2" style="display:none;"><!--page 2-->
+                       		<div class="row">
+								<div class="col-md-10" style="border-bottom:1px dotted #CCC; margin-top:15px; margin-bottom:15px;">
+									<h5>Step 2 of 3 - QUALIFICATIONS </h5>
+								</div>
+							</div>
+                       		<div class="row">
+								<div class="col-md-10" style="border-bottom:1px dotted #CCC; margin-bottom:15px;">
+									<h4> EMPLOYMENT DETAILS </h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10">
+								<div class="col-md-5">
+									<label for="working">Are you a currently working?<span style="color:#790000;"> *</span></label>
+									<div class="radio col-xs-4 col-md-3">
+										<label>
+											<input type="radio" name="work" id="working" value="yes"/>
+											Yes
+										</label>
+									</div>
+									<div class="radio col-xs-3 col-md-2">
+										<label>
+											<input type="radio" name="work" id="not_working" value="no" checked="true"/>
+											No
+										</label>
+									</div>
+								</div>
+								<div id="employed" class="col-md-5" style="display:none;">
+									<label for="teacher">Are you employed as a Teacher?</label>
+									<div class="radio col-xs-4 col-md-3">
+										<label>
+											<input type="radio" name="teacher" id="teacher" value="yes"/>
+											Yes
+										</label>
+									</div>
+									<div class="radio col-xs-3 col-md-2">
+										<label>
+											<input type="radio" name="teacher" id="not_teacher" value="no"/>
+											No
+										</label>
+									</div>
+								</div>
+								</div>
+							</div>
+							<div id="school_data" class="row" style="display:none; margin-top:20px;">
+								<div class="col-md-10">
+									<div class="col-md-5">
+										<label for="school">Name of School<span style="color:#790000;"> *</span></label>
+  										<input type="text" class="form-control" name="school" required="true"/>
+									</div>
+									<div class="col-md-5">
+										<label for="join_date">Date of first appointment<span style="color:#790000;"> *</span></label>
+  										<input id="datetimepicker_join" type="text" name="join_date" required="true"/>
+									</div>
+									<div class="col-md-5" style="margin-top:5px;">
+										<label for="ts_number">T.S Number<span style="color:#790000;"> *</span></label>
+  										<input type="text" class="form-control" name="ts_number" required="true"/>
+									</div>
+									<div class="col-md-5" style="margin-top:5px;">
+										<label for="district">District<span style="color:#790000;"> *</span></label>
+  										<input type="text" class="form-control" name="district" required="true"/>
+									</div>
+									<div class="col-md-5" style="margin-top:5px;">
+										<label for="province">Province<span style="color:#790000;"> *</span></label>
+  										<input type="text" class="form-control" name="province" required="true"/>
+									</div>
+									<div class="col-md-5" style="margin-top:5px;">
+										<label for="last_school">Last school/institution attended<span style="color:#790000;"> *</span></label>
+  										<input type="text" class="form-control" name="last_school" required="true"/>
+									</div>
+								</div>
+							</div>
+							<div id="empl_data" class="row" style="display:none; margin-top:20px;">
+								<div class="col-md-10">
+									<label for="emp_type">What type of Employment?<span style="color:#790000;"> *</span></label>
+									<input type="text" class="form-control" name="emp_type" required="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10" style="border-bottom:1px dotted #CCC; margin-top:15px; margin-bottom:15px;">
+									<h4> ACADEMIC HISTORY </h4>
+								</div>
+								<div class="col-md-10" style="margin-top:10px;">
+									<b>SCHOOL CERTIFICATE RESULTS OBTAINED('O'LEVELS ONLY)<span style="color:#790000;"> *</span></b>
+								</div>
+								<div class="col-xs-6 col-md-5">
+  									<label for="subject">Subject</label>
+  									<input type="text" class="form-control" name="subject" required="true"/>
+								</div>
+								<div class="col-xs-6 col-md-5">
+									<label for="grade">Grade</label>
+									<input type="text" class="form-control" name="grade" required="true"/>
+								</div>
+								<div class="col-md-10" style="margin-top:10px;">
+									<b>OTHER QUALIFICATIONS OBTAINED*</b>
+								</div>
+								<div class="col-xs-4 col-md-3">
+  									<label for="institute">Institution</label>
+  									<input type="text" class="form-control" name="institute" required="true"/>
+								</div>
+								<div class="col-xs-5 col-md-4">
+									<label for="qualification">Qualification Obtained</label>
+                                   	<input type="text" class="form-control" name="qualification" required="true"/>
+								</div>
+								<div class="col-xs-4 col-md-3">
+									<label for="quali_date">Date</label>
+									<input id="datetimepicker_sec" type="text" name="quali_date" required="true" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10" style="border-top:1px dotted #CCC; margin-top:30px; margin-bottom:15px;">
+									<label for="edu">Special Education Needs?</label>
+								</div>
+								<div class="radio col-md-5">
+									<label>
+										<input type="radio" name="special" id="sp" value="yes"/>
+										Yes
+									</label>
+								</div>
+								<div class="radio col-md-5">
+									<label>
+										<input type="radio" name="special" id="not_sp" value="no"/>
+										No
+									</label>
+								</div>
+							</div>
+							<div class="row" id="disability" style="display:none;">
+                                <div class="col-md-10" style="margin-top:15px;">
+                                    <label for="list">Please specify(tick)</label>
+                                </div>
+                                <div class="checkbox col-md-5">
+                                    <label>
+                                        <input type="checkbox" name="vision"  />
+                                            Vision
+                                    </label>
+                                </div>
+                                <div class="checkbox col-md-5">
+                                    <label>
+                                        <input type="checkbox" name="hearing"  />
+                                            Hearing
+                                    </label>
+                                </div>
+                                <div class="checkbox col-md-5">
+                                    <label>
+                                        <input type="checkbox" name="mobility"  />
+                                            Mobility
+                                    </label>
+                                </div>
+                                <div class="checkbox col-md-5">
+                                    <label>
+                                        <input type="checkbox" name="speech"  />
+                                            Speech
+                                    </label>
+                                </div>
+                                <div class="checkbox col-md-5">
+                                    <label>
+                                        <input type="checkbox" id="list_other" name="other"  />
+                                            Other
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row" id="visible_list" style="display:none;">
+                                <div class="col-md-10" style="margin-top:15px;">
+                                    <label for="list">List</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" name="list"/>
+                                </div>
+                            </div>
+							<div class="row">
+								<div class="col-md-10" style="border-top:1px dotted #CCC; border-bottom:1px dotted #CCC; margin-top:40px; margin-bottom:40px;">
+                        			<input type="button" style="margin-top:15px; margin-bottom:30px;" id="gform_previous_button_2_32" class="button" value="Previous" tabindex="39" onclick="jQuery('#page2').hide();jQuery('#page1').show();"/>
+                        			<input type="button" style="margin-top:15px; margin-bottom:30px;" id="gform_next_button_2_32" class="button" value="Next" tabindex="38"/>
+                        			<!-- onclick="jQuery('#page2').hide();jQuery('#page3').show();"/>-->
+               					</div>
+                    		</div>
+                    		</div>
+                    		<div id="page3" style="display:none;"> <!-- page3 -->
+                       		<div class="row">
+								<div class="col-md-10" style="border-bottom:1px dotted #CCC; margin-top:15px; margin-bottom:15px;">
+									<h5>Step 3 of 3 - COURSE SELECTION </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10" style="margin-bottom:15px;">
+									<i>Courses in Schedule A cannot be combined. You are expected to choose only on while those in Schedule B
+										will require you to choose from Table 1 and the second from Table 2 subject combination.</i>
+								</div>
+                                <div id="programe" class="col-xs-6 col-md-5" >
+                                    <label for="programe">Select your Course?<span style="color:#790000;"> *</span></label>
+                                    <select name="programe" class="form-control" required="true">
+                                         <option value="">Select</option>
+                                         <option value="business_studies">Business Studies</option>
+                                         <option value="home_economics">Home Economics</option>
+                                         <option value="industrial_arts">Industrial Arts</option>
+                                         <option value="science">Science</option>
+                                         <option value="english_civics">English / Civics</option>
+                                         <option value="english_religious_languages">English / Religious Education</option>
+                                         <option value="english_geography">English / Geography</option>
+                                         <option value="history_civics">History / Civics</option>
+                                         <option value="history_zambia_languages">History / Zambia Languages</option>
+                                         <option value="history_religious_education">History / Religious Education</option>
+                                         <option value="history_geography">History / Geography</option>
+                                         <option value="mathematics_zambia_languages">Mathematics / Zambia Languages</option>
+                                         <option value="mathematics_religious_education">Mathematics / Religious Education</option>
+                                         <option value="mathematics_geography">Mathematics / Geography</option>
+                                    </select>
+                                 </div>
+							</div>
+							<div class="row">
+                                <div id="bank_type" class="col-md-10" >
+                                    <label for="bank_type">Select Bank Details<span style="color:#790000;"> *</span></label>
+                                    <select name="bank_type" class="form-control" required="true">
+                                         <option value="">Select</option>
+                                         <option value="bank">Bank Transfer</option>
+                                         <option value="credit_card">Credit Card</option>
+                                         <option value="paypal">Paypal</option>
+                                    </select>
+                                 </div>
+							</div>
+							<div class="row" id="visible_bank_field" style="display:none;">
+                                <div class="col-md-10" style="margin-top:15px;">
+                                    <label for="payment_detail">Payment Details</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" name="payment_detail"/>
+                                </div>
+                            </div>
+							<div class="row">
+  								<div class="col-md-10">
+									<label for="name">Upload File<span style="color:#790000;"> *</span></label>
+  								</div>
+  								<div class="col-xs-6 col-md-5">
+  									<input type="file" name="file_name" class="form-control" required="true"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10" style="border-top:1px dotted #CCC; border-bottom:1px dotted #CCC; margin-top:40px; margin-bottom:40px;">
+                        			<input type="button" style="margin-top:15px; margin-bottom:30px;" id="gform_previous_button_2_35" class="button" value="Previous" tabindex="52" onclick="jQuery('#page3').hide();jQuery('#page2').show();"/>
+                        			<input type="button" style="margin-top:15px; margin-bottom:30px;" id="gform_submit_button_2_35" class="button" value="Submit" tabindex="51"/>
+               					</div>
+                    		</div>
+                    		</div>
+                       		<!--div class="row"> /* PAGE 4 */
+								<div class="col-md-10" style="border-bottom:1px dotted #CCC; margin-top:15px; margin-bottom:15px;">
+									<h5>Step 4 of 4 - SIGNATURE </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10">
+									<label for="edu">Special Education Needs?</label>
+								</div>
+								<div class="radio col-md-5">
+									<label>
+										<input type="radio" name="optionsRadios" id="sp" value="yes"/>
+										Yes
+									</label>
+								</div>
+								<div class="radio col-md-5">
+									<label>
+										<input type="radio" name="optionsRadios" id="not_sp" value="no"/>
+										No
+									</label>
+								</div>
+								<div class="col-md-10" style="margin-top:15px;">
+									<label for="list">List</label>
+								</div>
+								<div class="col-md-7">
+  									<input type="text" class="form-control" name="list" />
+								</div>
+								<div class="col-md-10" style="margin-top:15px;">
+									<label for="sign">Signature (please user your mouse to sign)</label>
+								</div>
+								<div class="col-md-5">
+									<div id='input_2_30_Container' style='height:180px; width:300px;'>
+										<input type='hidden' class='gform_hidden' name='input_2_30_valid' id='input_2_30_valid' />
+										<canvas id='input_2_30' width='300' height='180'></canvas>
+									</div>
+				  				</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10" style="border-top:1px dotted #CCC; border-bottom:1px dotted #CCC; margin-top:40px; margin-bottom:40px;">
+                        			<input type="button" style="margin-top:15px; margin-bottom:30px;" id="gform_previous_button_2" class="button" value="Previous" tabindex="62" onclick="jQuery('#gform_target_page_number_2').val('3'); jQuery('#gform_2').trigger('submit',[true]); "/>
+                        			<input type="button" style="margin-top:15px; margin-bottom:30px;" id="gform_next_button_2" class="button" value="Submit" tabindex="63" onclick="if(window['gf_submitting_2']){return false;}  window['gf_submitting_2']=true; "/>
+               					</div>
+                    		</div>-->
+                       </form>
+                   </div>
+                   	<div class="col-md-4">
+                   		<div class="oe_structure"></div>
+                   	</div>
+              </div>
+           </div>
+         </div>
+         </t>
+        </template>
+
+
+        <template id="success_login" name="success">
+        <t t-call="website.layout">
+        <div id="wrap">
+            <div class="oe_structure">
+                <div class="container">
+                    <h1>Thank you!</h1>
+                    <p>
+                        Your Admission application has been successfully registered,
+                        we will get back to you soon.
+                    </p>
+                </div>
+            </div>
+        </div>
+        </t>
+        </template>
+      </data>
+</openerp>
